@@ -1,13 +1,12 @@
-import {
-  Box,
-  CssBaseline,
-  Paper,
-  Typography,
-  ThemeProvider,
-} from "@mui/material";
+// src/App.tsx
+
+import React from "react";
+import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { routes as appRoutes } from "./routes";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
   // define theme
@@ -32,15 +31,19 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box height="100vh" display="flex" flexDirection="column">
-        <Routes>
-          {appRoutes?.map((route) => (
-            <Route
-              key={route.key}
-              path={route.path}
-              element={<route.component />}
-            ></Route>
-          ))}
-        </Routes>
+        <Router>
+          <Navbar />
+          <Routes>
+            {appRoutes.map((route) => (
+              <Route
+                key={route.key}
+                path={route.path}
+                element={<route.component />}
+              />
+            ))}
+          </Routes>
+          <Footer />
+        </Router>
       </Box>
     </ThemeProvider>
   );
