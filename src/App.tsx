@@ -4,24 +4,25 @@ import { createTheme } from "@mui/material/styles";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { notAuthenticatedRoutes, routes as appRoutes } from "./routes";
 import Layout from "./components/Layout";
+import NotFound from "./pages/NotFound";
 
 function App() {
   // define theme
   const theme = createTheme({
-    palette: {
-      primary: {
-        light: "#63b8ff",
-        main: "#0989e3",
-        dark: "#005db0",
-        contrastText: "#000",
-      },
-      secondary: {
-        main: "#4db6ac",
-        light: "#82e9de",
-        dark: "#00867d",
-        contrastText: "#000",
-      },
-    },
+    // palette: {
+    //   primary: {
+    //     light: "#63b8ff",
+    //     main: "#0989e3",
+    //     dark: "#005db0",
+    //     contrastText: "#000",
+    //   },
+    //   secondary: {
+    //     main: "#4db6ac",
+    //     light: "#82e9de",
+    //     dark: "#00867d",
+    //     contrastText: "#000",
+    //   },
+    // },
   });
 
   return (
@@ -38,6 +39,7 @@ function App() {
                   element={<route.component />}
                 />
               ))}
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Layout>
           <Routes>

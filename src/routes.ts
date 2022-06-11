@@ -32,8 +32,8 @@ export const routes: Array<Route> = [
   },
   {
     key: "products-route",
-    title: "Products",
-    path: "/products",
+    title: "Product",
+    path: "/product",
     enabled: true,
     component: Products,
   },

@@ -24,7 +24,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import Logo from "./Logo";
 import navbarList from "./navList";
 import StyledAvatar from "./StyledAvatar";
-import Link from '@mui/material/Link';
+import Link from "@mui/material/Link";
 
 const drawerWidthOpen = 240;
 const paddingIconButton = 10;
@@ -48,7 +48,7 @@ export default function SideNavbar({ children }: Props) {
 
   function toogleOpen(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    setOpen(!open); 
+    setOpen(!open);
   }
 
   function toogleOpenSearch() {
@@ -62,7 +62,7 @@ export default function SideNavbar({ children }: Props) {
 
   const drawerContent = (
     <>
-     <Link href="/" underline="none">
+      <Link href="/" underline="none">
         <Box
           sx={{
             display: "flex",
@@ -201,7 +201,8 @@ export default function SideNavbar({ children }: Props) {
                       backgroundColor: "#26284687",
                     },
                   }}
-                  component="a" href={item.path}
+                  component="a"
+                  href={item.path}
                 >
                   <ListItemIcon sx={{ minWidth: "46px" }}>
                     <Badge
@@ -209,7 +210,9 @@ export default function SideNavbar({ children }: Props) {
                       color="secondary"
                       variant="dot"
                     >
-                      <item.icon sx={{ fontSize: "20px", color: "lightgray" }} />
+                      <item.icon
+                        sx={{ fontSize: "20px", color: "lightgray" }}
+                      />
                     </Badge>
                   </ListItemIcon>
 
@@ -336,7 +339,7 @@ export default function SideNavbar({ children }: Props) {
       >
         {drawerContent}
       </Drawer>
-      <Box sx={{ padding: "10px" }}>{children}</Box>
+      <Box sx={{ padding: "10px", width: "100%" }}>{children}</Box>
     </Box>
   );
 }
