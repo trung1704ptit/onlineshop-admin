@@ -1,9 +1,7 @@
 // src/App.tsx
-
-import React from "react";
 import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { routes as appRoutes } from "./routes";
 import Layout from "./components/Layout";
 
@@ -30,8 +28,8 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box height="100vh" display="flex" flexDirection="column">
-        <Layout>
-          <Router>
+        <BrowserRouter>
+          <Layout>
             <Routes>
               {appRoutes.map((route) => (
                 <Route
@@ -41,8 +39,8 @@ function App() {
                 />
               ))}
             </Routes>
-          </Router>
-        </Layout>
+          </Layout>
+        </BrowserRouter>
       </Box>
     </ThemeProvider>
   );

@@ -24,6 +24,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import Logo from "./Logo";
 import navbarList from "./navList";
 import StyledAvatar from "./StyledAvatar";
+import Link from '@mui/material/Link';
 
 const drawerWidthOpen = 240;
 const paddingIconButton = 10;
@@ -37,16 +38,17 @@ const iconButtonSx: SxProps = {
 };
 
 type Props = {
-  children: React.ReactElement
-}
+  children: React.ReactElement;
+};
 
 export default function SideNavbar({ children }: Props) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const refFocus = useRef<HTMLInputElement>(null);
 
-  function toogleOpen() {
-    setOpen(!open);
+  function toogleOpen(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    setOpen(!open); 
   }
 
   function toogleOpenSearch() {
@@ -60,71 +62,70 @@ export default function SideNavbar({ children }: Props) {
 
   const drawerContent = (
     <>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          height: "42px",
-          width: "auto",
-          backgroundColor: "transparent",
-          margin: "14px 14px",
-          padding: "12px 0px",
-          borderBottom: "1px solid lightgray",
-          alignItems: "flex-end",
-        }}
-      >
+     <Link href="/" underline="none">
         <Box
           sx={{
-            flexShrink: 0,
-            display: open ? "none" : { xs: "none", sm: "initial" },
-            marginBottom: "9px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "auto",
+            backgroundColor: "transparent",
+            margin: "14px 14px",
+            borderBottom: "1px solid lightgray",
           }}
         >
-          <Logo />
-        </Box>
-        <Typography
-          variant="h1"
-          noWrap={true}
-          gutterBottom
-          sx={{
-            display: { xs: "none", sm: "initial" },
-            fontSize: "18px",
-            fontWeight: 600,
-            color: "lightgray",
-            width: "154px",
-            marginLeft: open ? "0px" : "8px",
-            paddingBottom: "3px",
-          }}
-        >
-          OnlineShop
-        </Typography>
+          <Box
+            sx={{
+              display: open ? "none" : { xs: "none", sm: "initial" },
+            }}
+          >
+            <Logo />
+          </Box>
+          <Typography
+            variant="h1"
+            noWrap={true}
+            gutterBottom
+            sx={{
+              display: { xs: "none", sm: "initial" },
+              fontSize: "18px",
+              fontWeight: 600,
+              color: "lightgray",
+              width: "154px",
+              margin: 0,
+              padding: 0,
+              textAlign: "center",
+            }}
+          >
+            OnlineShop
+          </Typography>
 
-        <Button
-          onClick={toogleOpen}
-          sx={{
-            minWidth: "initial",
-            padding: "10px",
-            color: "gray",
-            borderRadius: "8px",
-            backgroundColor: open ? "transparent" : "transparent",
-            "&:hover": {
-              backgroundColor: "#26284687",
-            },
-          }}
-        >
-          <MenuIcon
-            sx={{ fontSize: "20px", color: open ? "lightgray" : "lightGray" }}
-          ></MenuIcon>
-        </Button>
-      </Box>
+          <Button
+            onClick={toogleOpen}
+            sx={{
+              minWidth: "initial",
+              padding: "10px",
+              color: "gray",
+              borderRadius: "8px",
+              backgroundColor: open ? "transparent" : "transparent",
+              "&:hover": {
+                backgroundColor: "#26284687",
+              },
+            }}
+          >
+            <MenuIcon
+              sx={{ fontSize: "20px", color: open ? "lightgray" : "lightGray" }}
+            ></MenuIcon>
+          </Button>
+        </Box>
+      </Link>
 
       <List dense={true}>
-        {navbarList.map((key, index) => (
+        {navbarList.map((item, index) => (
           <>
             {index === 0 ? (
               <>
                 <Tooltip
-                  title={open ? key.desc : ""}
+                  title={open ? item.desc : ""}
                   placement={"right"}
                   componentsProps={{
                     tooltip: {
@@ -148,11 +149,11 @@ export default function SideNavbar({ children }: Props) {
                   >
                     <ListItemIcon sx={{ minWidth: "46px" }}>
                       <Badge
-                        badgeContent={key.badge}
+                        badgeContent={item.badge}
                         color="secondary"
                         variant="dot"
                       >
-                        <key.icon
+                        <item.icon
                           sx={{ fontSize: "20px", color: "lightgray" }}
                         />
                       </Badge>
@@ -178,7 +179,7 @@ export default function SideNavbar({ children }: Props) {
               </>
             ) : (
               <Tooltip
-                title={open ? key.desc : ""}
+                title={open ? item.desc : ""}
                 placement={"right"}
                 componentsProps={{
                   tooltip: {
@@ -193,26 +194,27 @@ export default function SideNavbar({ children }: Props) {
               >
                 <ListItemButton
                   sx={{
-                    margin: "6px 14px",
+                    margin: "2px 14px",
                     padding: "10px",
                     borderRadius: "8px",
                     "&:hover": {
                       backgroundColor: "#26284687",
                     },
                   }}
+                  component="a" href={item.path}
                 >
                   <ListItemIcon sx={{ minWidth: "46px" }}>
                     <Badge
-                      badgeContent={key.badge}
+                      badgeContent={item.badge}
                       color="secondary"
                       variant="dot"
                     >
-                      <key.icon sx={{ fontSize: "20px", color: "lightgray" }} />
+                      <item.icon sx={{ fontSize: "20px", color: "lightgray" }} />
                     </Badge>
                   </ListItemIcon>
 
                   <ListItemText
-                    primary={key.desc}
+                    primary={item.desc}
                     primaryTypographyProps={{
                       variant: "body2",
                     }}
@@ -225,16 +227,14 @@ export default function SideNavbar({ children }: Props) {
                       minWidth: "126px",
                     }}
                   />
-                  {key.badge !== 0 ? (
+                  {item.badge !== 0 ? (
                     <Chip
-                      label={key.badge}
+                      label={item.badge}
                       color={"secondary"}
                       size="small"
                       sx={{ height: "auto" }}
                     />
-                  ) : (
-                    <></>
-                  )}
+                  ) : null}
                 </ListItemButton>
               </Tooltip>
             )}
@@ -336,9 +336,7 @@ export default function SideNavbar({ children }: Props) {
       >
         {drawerContent}
       </Drawer>
-      <Box>
-        {children}
-      </Box>
+      <Box sx={{ padding: "10px" }}>{children}</Box>
     </Box>
   );
 }
