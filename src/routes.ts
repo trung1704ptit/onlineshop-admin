@@ -1,6 +1,7 @@
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Products from "./pages/Products";
+import Login from "./pages/Login";
 
 import { FC } from "react";
 
@@ -35,5 +36,15 @@ export const routes: Array<Route> = [
     path: "/products",
     enabled: true,
     component: Products,
+  },
+];
+
+export const notAuthenticatedRoutes: Array<Route> = [
+  {
+    key: "login",
+    title: "Login",
+    path: "/login",
+    enabled: true,
+    component: Login,
   },
 ];

@@ -2,7 +2,7 @@
 import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { routes as appRoutes } from "./routes";
+import { notAuthenticatedRoutes, routes as appRoutes } from "./routes";
 import Layout from "./components/Layout";
 
 function App() {
@@ -40,6 +40,15 @@ function App() {
               ))}
             </Routes>
           </Layout>
+          <Routes>
+            {notAuthenticatedRoutes.map((route) => (
+              <Route
+                key={route.key}
+                path={route.path}
+                element={<route.component />}
+              />
+            ))}
+          </Routes>
         </BrowserRouter>
       </Box>
     </ThemeProvider>
